@@ -20,6 +20,13 @@ pd.to_numeric(df['Quantidade de Ingressantes no Curso'], errors='coerce').astype
 >[!obs] `errors='coerce'` faz com que um valor que não pode ser convertido seja tranformado em null
 
 ### Métodos Utilitários
+#### Substituir NaN por um valor 
+`.fillna(0)`
+#### Renomear Colunas de Tabelas Resultantes
+`.rename(columns={
+    'presencial': 'Desistências no Presencial',
+    'remoto': 'Desistências no Remoto'
+})`
 #### Tamanho 
 `size()`
 #### Soma
@@ -50,7 +57,19 @@ pd.to_numeric(df['Quantidade de Ingressantes no Curso'], errors='coerce').astype
 `nunique()`
 #### Descrição Resumida dos Dados
 `describe()`
-### Agrupamento
+#### Agrupamento
 ```py
 df.groupby('Nome da Grande Área do Curso segundo a classificação CINE BRASIL')['Quantidade de Concluintes no Curso no ano de referência'].agg(lambda x: x.mode())
 ```
+#### Pivot Table 
+```py
+tabela_desistencia = df.pivot_table(
+    index='Nome da Grande Área do Curso segundo a classificação CINE BRASIL',    # As linhas da sua nova tabela
+    columns='Modalidade de Ensino',                                              # A coluna cujos valores virarão novas colunas
+    values='Quantidade de Desistência no Curso no ano de referência',            # Os valores que preencherão a tabela
+    aggfunc='sum'                                                                # A operação a ser aplicada (soma)
+)
+
+tabela_desistencia
+```
+
