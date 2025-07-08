@@ -73,3 +73,18 @@ tabela_desistencia = df.pivot_table(
 tabela_desistencia
 ```
 
+
+### Cross Tab
+```py
+freq_grau_academico_por_grande_area = pd.crosstab(
+    index=df['Nome da Grande Área do Curso segundo a classificação CINE BRASIL'],
+    columns=df['Grau Acadêmico']
+).rename(columns={
+    '1': 'Bacharelado',
+    '2': 'Licenciatura',
+    '3': 'Tecnológico'
+})
+
+freq_grau_academico_por_grande_area 
+```
+
